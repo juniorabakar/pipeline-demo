@@ -4,7 +4,7 @@
 
 Pipeline d'intégration et de déploiement continus construit avec **GitHub Actions**, sur une application Python minimale.
 
-> **Projet d'apprentissage.** L'application est volontairement triviale : l'objet de ce dépôt n'est pas le code, mais la **chaîne CI/CD** qui l'entoure , et surtout ce qu'on apprend en la cassant.
+> **Projet d'apprentissage.** L'application est volontairement triviale : l'objet de ce dépôt n'est pas le code, mais la **chaîne CI/CD** qui l'entoure, et surtout ce qu'on apprend en la cassant.
 
 ---
 
@@ -66,8 +66,13 @@ Le cœur du projet. Chaque panne a été soit rencontrée, soit provoquée volon
 |---|---|---|---|
 | 1 | Le workflow ne démarre pas : *Invalid workflow file* | `-uses:` au lieu de `- uses:` : en YAML, le tiret d'un élément de liste exige un espace | Une erreur de syntaxe n'échoue pas le build, elle **empêche le pipeline d'exister** |
 | 2 | *Implicit keys need to be on a single line* | `run:` suivi d'un script multi-lignes sans le block scalar `\|` | Une commande sur une ligne → `run: cmd`. Plusieurs lignes → `run: \|` puis le script indenté |
+| 3 | `cp: cannot stat 'app.py': No such file or directory` dans `build` | Le fichier applicatif n'existait pas sous le nom attendu par le workflow | Le runner ne voit que **ce qui est réellement versionné**. Vérifier le dépôt, pas l'éditeur local |
+| 4 | `ModuleNotFoundError: No module named 'App'` dans `test` | Casse incohérente entre le nom du fichier, l'import et le workflow | **Linux distingue `App.py` de `app.py`, Windows non.** Un projet valide en local peut échouer sur le runner pour une seule majuscule |
+| 5 | `deploy` non exécuté, marqué *skipped* | `needs: test` sur un job en échec | Comportement attendu, pas un bug : **le livrable cassé n'a jamais atteint le déploiement** |
 
-*(Journal complété au fil des pannes provoquées : version d'outil inexistante, test en échec, secret manquant.)*
+**Ce que ces pannes ont en commun.** Les deux premières empêchent le pipeline de s'exécuter ; les deux suivantes le font échouer pendant l'exécution. La distinction compte au diagnostic : une erreur de syntaxe se voit avant tout démarrage, une erreur d'exécution se lit dans les logs du job concerné.
+
+*(Restent à provoquer volontairement : version d'outil inexistante, test en échec, secret manquant.)*
 
 ---
 
@@ -96,6 +101,8 @@ Les concepts sont transférables ; seule la syntaxe change.
 ├── requirements.txt           # dépendances
 └── README.md
 ```
+
+**Convention de nommage :** tout en minuscules. Voir les pannes 3 et 4.
 
 ## Reproduire en local
 
