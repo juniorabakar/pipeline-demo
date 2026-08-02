@@ -80,6 +80,8 @@ Quatre modes de défaillance reproduits délibérément, du plus visible au plus
 
 **Modification :** suppression de l'espace après le tiret d'un élément de liste.
 
+Une erreur qui est très fréquente (y compris par moi) est une mauvaise indentation. Que se passe-t-il si je supprime les deux espaces avant 
+
 ![Erreur de syntaxe signalée dans le fichier de workflow](https://github.com/user-attachments/assets/106d7142-0480-49cc-9b44-09ad1a4dda81)
 
 **Résultat :** aucun job n'est lancé. Le workflow n'est pas seulement en échec, il n'existe pas.
@@ -93,6 +95,8 @@ Quatre modes de défaillance reproduits délibérément, du plus visible au plus
 ### Panne B : version d'outil inexistante
 
 **Modification :** `python-version: '3.98'` dans le job `build`.
+
+Autre erreur très réquente : Les versions. Il y en a à la pelle, et il est très facile de se tromper. Une mauvaise version peut faire échouer tout le job.
 
 ![Échec de l'étape d'installation de Python](https://github.com/user-attachments/assets/93e59c36-1029-4b29-a922-035fc891bcc8)
 
@@ -114,6 +118,8 @@ Quatre modes de défaillance reproduits délibérément, du plus visible au plus
 
 **Modification :** assertion volontairement fausse dans `test_app.py`.
 
+Disons que je suis mauvais en calcul et que mon assertion faite dans le fichier de test est mauvaise ! Que se passerait-il dans ce cas ?
+
 ![Échec de la suite de tests](https://github.com/user-attachments/assets/43d0c2fa-97b2-4943-ac16-315341564ae5)
 
 **Résultat :** `build` reste vert, `test` échoue, et `deploy` est marqué *skipped*.
@@ -127,6 +133,8 @@ Quatre modes de défaillance reproduits délibérément, du plus visible au plus
 ### Panne D : secret manquant
 
 **Modification :** référence à un secret inexistant dans le job `deploy`.
+
+L'erreur la plus dangereuse : Celle qui est silencieuse. Imaginons que je n'ai pas défini un secret dont je fais référence dans mon fichier. Que se passerait-il ?
 
 ![Échec du job deploy sur le contrôle de présence du secret](https://github.com/user-attachments/assets/01368f82-a37d-4918-8fdc-c88a16fa7ef9)
 
