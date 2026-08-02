@@ -80,7 +80,7 @@ Quatre modes de défaillance reproduits délibérément, du plus visible au plus
 
 **Modification :** suppression de l'espace après le tiret d'un élément de liste.
 
-Une erreur qui est très fréquente (y compris par moi, comme vu ci-dessus !) est une mauvaise indentation/syntaxe. Que se passe-t-il si je supprime les deux espaces avant 
+Une erreur qui est très fréquente (y compris par moi, comme vu ci-dessus !) est une mauvaise indentation/syntaxe. Que se passe-t-il si je supprime les deux espaces avant *runs-on* ?
 
 ![Erreur de syntaxe signalée dans le fichier de workflow](https://github.com/user-attachments/assets/106d7142-0480-49cc-9b44-09ad1a4dda81)
 
