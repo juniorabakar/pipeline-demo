@@ -23,7 +23,7 @@ jobs:
           name: application
           path: dist/
   test:
-    runs-on: ubuntu-latest
+runs-on: ubuntu-latest
     needs: build
     steps:
       - uses: actions/checkout@v4
