@@ -43,7 +43,7 @@ jobs:
           name: application
       - name: Verification du secret
         env: 
-          API_TOKEN: ${{ secrets.UNDEFINED }}
+          API_TOKEN: ${{ secrets.API_TOKEN }}
         run: |
           if [ -z "$API_TOKEN" ]; then
             echo "ERREUR : secret absent"
