@@ -10,7 +10,7 @@ jobs:
       - name: Installer Python
         uses: actions/setup-python@v5
         with:
-          python-version : '3.98'
+          python-version : '3.11'
       - name: Installer les dépendances
         run: pip install -r requirements.txt
       - name: Préparation du livrable
